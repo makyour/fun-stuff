@@ -1,0 +1,15 @@
+# ignore ALL .log files
+*.log
+
+# ignore ALL files in ANY directory named temp
+temp/
+
+# Mac DS-Store Files
+.DS_Store
+
+#Large output files
+build/output/*
+
+# ignore ALL .log files
+*.jar
+src/*.jar
