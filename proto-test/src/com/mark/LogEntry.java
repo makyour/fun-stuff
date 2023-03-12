@@ -8,6 +8,11 @@ public class LogEntry {
 	long id = 0;
 	double amount = 0.0;
 
+	public LogEntry(long id) {
+		this.setId(id);
+
+	}
+	
 	public LogEntry(byte type, int timestamp, long id, double amount) {
 		this.setType(type);
 		this.setTimestamp(timestamp);

@@ -8,10 +8,20 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
+/**
+ * @author ****
+ * 
+ * 'BinaryParser' Utility class 
+ * - Read the file 'readFile(path)'
+ * - Parse out the binary records
+ * - Print the report to terminal
+ *
+ */
 public class BinaryParser {
 
 	int startAutoPay, endAutoPay = 0;
-	double totalCredit, totalDebit = 0.0;
+	double totalCredit, totalDebit, totalUserBalance = 0.0;
 	Long userBalance = new Long("2456938384156277127");
 	private static String MAGIC = "MPS7";
 	ArrayList<LogEntry> records = new ArrayList<LogEntry>();
@@ -108,16 +118,24 @@ public class BinaryParser {
 
 	public double calculateBalance(Long id) {
 
-		Iterator<LogEntry> iterator = records.iterator();
 		double balance = 0.0;
+		Iterator<LogEntry> iterator = records.iterator();
+		
+		
+		//using streams
+		records.stream().filter(entry -> entry.getId() == id)
+        .forEach(entry -> totalUserBalance += entry.getAmount());
 
-		while (iterator.hasNext()) {
+		//iterator + loop
+	/*while (iterator.hasNext()) {
 			LogEntry entry = iterator.next();
 			if (entry.getId() == id) {
 				balance += entry.getAmount();
+				
+				//System.out.println(String.format("Using loop for %s is %s ", id, balance));
 			}
-		}
-		return balance;
+		}*/
+		return totalUserBalance;
 	}
 
 	public void processType(int type, LogEntry entry) {
